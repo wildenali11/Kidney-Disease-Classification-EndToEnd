@@ -24,7 +24,13 @@ Create the github repository
 - run tempalate to create components <br>
   `python template.py`
 - install requirements
-
+  `pip install -r requirements.txt`
+- Create main.py
+  `python main.py`
+  output
+  [2024-07-03 20:48:35,780: INFO: main: Welcome to our custom log]
+- Create common.py in utils directory
+- create trials.ipynb in research directory
 
 
 
