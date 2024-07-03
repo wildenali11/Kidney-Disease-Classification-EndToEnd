@@ -23,8 +23,12 @@ Create the github repository
 - Add list of componen on the templates (list_of_files)
 - run tempalate to create components <br>
   `python template.py`
+
+### 3. Project Setup and Requirements Installation
 - install requirements
   `pip install -r requirements.txt`
+
+### 4. Logging, Utils and Exception Module
 - Create main.py
   `python main.py`
   output
@@ -32,34 +36,8 @@ Create the github repository
 - Create common.py in utils directory
 - create trials.ipynb in research directory
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Workflows
+### 5. Project Workflows
+#### Workflows
 1. Update config.yaml
 2. Update secrets.yaml [Optional]
 3. Update params.yaml
