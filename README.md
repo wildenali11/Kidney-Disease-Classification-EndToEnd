@@ -48,3 +48,7 @@ Create the github repository
 8. Update the main.py
 9. Update the dvc.yaml
 10. app.py
+
+##### Prepare Base Model
+- Running stage_02_prepare_base_model.py
+  ```python main.py  ```
