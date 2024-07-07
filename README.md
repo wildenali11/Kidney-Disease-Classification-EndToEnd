@@ -52,3 +52,7 @@ Create the github repository
 ##### Prepare Base Model
 - Running stage_02_prepare_base_model.py
   ```python main.py  ```
+
+##### Model Traiing
+- Running stage_03_prepare_base_model.py
+  ```python main.py  ```
