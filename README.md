@@ -53,6 +53,29 @@ Create the github repository
 - Running stage_02_prepare_base_model.py
   ```python main.py  ```
 
-##### Model Traiing
+##### Model Training
 - Running stage_03_prepare_base_model.py
   ```python main.py  ```
+
+##### Model Evaluation
+- Create 04_model_evaluation_with_mlflow.ipynb in research directory
+- Integrate Dagshub with github repository
+- Click REMOTE green button on repository
+  ```
+  import dagshub
+  dagshub.init(repo_owner='wildenali11', repo_name='Kidney-Disease-Classification-EndToEnd', mlflow=True)
+
+  import mlflow
+  with mlflow.start_run():
+    mlflow.log_param('parameter name', 'value')
+    mlflow.log_metric('metric name', 1)
+  ```
+- Generate token
+  export MLFLOW_TRACKING_URI=https://dagshub.com/wildenali11/Kidney-Disease-Classification-EndToEnd.mlflow
+  export MLFLOW_TRACKING_USERNAME=wildenali11
+  export MLFLOW_TRACKING_PASSWORD=d64de539b652532cafea03ac7fddec87bd9ee4f3
+- Export to os environment
+  os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/wildenali11/Kidney-Disease-Classification-EndToEnd.mlflow"
+  os.environ["MLFLOW_TRACKING_USERNAME"]="wildenali11"
+  os.environ["MLFLOW_TRACKING_PASSWORD"]="d64de539b652532cafea03ac7fddec87bd9ee4f3"
+- 
