@@ -91,3 +91,10 @@ Create the github repository
 1. dvc init
 2. dvc repro
 3. dvc dag 
+
+# Create 10. app.py file
+- create prediction.py in pipeline directory
+- create app.py in Kidney-Disease-Classification-EndToEnd directory
+- run
+  ```python app.py```
+- 
