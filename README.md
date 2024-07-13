@@ -86,4 +86,8 @@ Create the github repository
   ```dvc init```
 - Run the DVC on terminal
   ```dvc repro```
-- 
+
+### DVC command
+1. dvc init
+2. dvc repro
+3. dvc dag 
