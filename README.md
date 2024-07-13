@@ -78,4 +78,12 @@ Create the github repository
   os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/wildenali11/Kidney-Disease-Classification-EndToEnd.mlflow"
   os.environ["MLFLOW_TRACKING_USERNAME"]="wildenali11"
   os.environ["MLFLOW_TRACKING_PASSWORD"]="d64de539b652532cafea03ac7fddec87bd9ee4f3"
+
+# DVC (Data Version Control) [dvc.org](https://dvc.org/doc/user-guide)
+- Versioning the dataset, code, model
+- Create dvc.yaml
+- Init the DVC on terminal
+  ```dvc init```
+- Run the DVC on terminal
+  ```dvc repro```
 - 

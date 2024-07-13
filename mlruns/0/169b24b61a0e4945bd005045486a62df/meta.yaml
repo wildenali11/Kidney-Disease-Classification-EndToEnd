@@ -1,0 +1,15 @@
+artifact_uri: file:///home/willowmore/wilden_development/Kidney-Disease-Classification-EndToEnd/mlruns/0/169b24b61a0e4945bd005045486a62df/artifacts
+end_time: 1720811813541
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 169b24b61a0e4945bd005045486a62df
+run_name: skillful-wasp-191
+run_uuid: 169b24b61a0e4945bd005045486a62df
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1720811810334
+status: 3
+tags: []
+user_id: willowmore
