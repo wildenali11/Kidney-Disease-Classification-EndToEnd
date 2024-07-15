@@ -111,70 +111,101 @@ Create the github repository
 ## 1. Login to AWS console.
 
 ## 2. Create IAM user for deployment
+  - In Search tab type IAM (Identity and Access Management)
+  - In Sidebar collapse the Access management and Click Users
+  - Click Create user button on top right
+  - fill the User name form named "kidney" then click next
+  - In Permissions options choose 'Attach policies directly' then add policy:
+    1. AmazonEC2ContainerRegistryFullAccess
+    2. AmazonEC2FullAccess
+  - Click next and Create user button
+  - Click the kidney in the table
+  - Click Seciruty credentials tab
+  - In Access keys (0) click Create access key
+  - In Access key best practices & alternatives choose Command Line Interface (CLI) then click next
+  - In Set description tag - optional click Create access key button and do not fill anything on Description tag value
+  - Click Download .csv file button in Retrieve access keys then click Done
+  - Access key ID     : AKIA4MTWH3E5VEOHMIGR
+  - Secret access key : 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
 
-	#with specific access
+## 3. ECR
+  - Type ECR (Elastic Container Registry) on Search 
+  - Click Create
+  - Visibility settings -> Private
+  - Repository name -> 851725244731.dkr.ecr.ap-southeast-2.amazonaws.com/ -> "kidney"
+  - Click Create Repository
+  - Click Copy URI ```851725244731.dkr.ecr.ap-southeast-2.amazonaws.com/kidney```
+  - Region -> Asia Pasific (Sydney) ap-southeast-2
 
-	1. EC2 access : It is virtual machine
-
-	2. ECR: Elastic Container registry to save your docker image in aws
-
-
-	#Description: About the deployment
-
-	1. Build docker image of the source code
-
-	2. Push your docker image to ECR
-
-	3. Launch Your EC2 
-
-	4. Pull Your image from ECR in EC2
-
-	5. Lauch your docker image in EC2
-
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 566373416292.dkr.ecr.us-east-1.amazonaws.com/chicken
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-    AWS_ACCESS_KEY_ID=
-
-    AWS_SECRET_ACCESS_KEY=
-
-    AWS_REGION = us-east-1
-
-    AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-    ECR_REPOSITORY_NAME = simple-app
+## 4. EC2 (Elastic Compute Code): It is virtual machine
+  - Type EC2 on Search 
+  - Click Launch instance
+  - Name and tags -> "kidney-machine"
+  - Choose -> Ubuntu Machine
+  - Choose -> Ubuntu Server 22.04 LTS
+  - Key pair -> Click -> Create new key pair
+  - Key pair name -> kidney
+  - Key pair type -> RSA
+  - Private key file format -> .pem
+  - Create key pair
+  - Configure Storage
+    - 1x32 GiB
+    - gp2
+  - Click Launch instance
+  - Goto Instance -> https://ap-southeast-2.console.aws.amazon.com/ec2/home?region=ap-southeast-2#Instances:
+  - Click Instance ID -> i-07191b02b8fe2d769
+  - Click Connect button -> Connect button again
+  - go to https://ap-southeast-2.console.aws.amazon.com/ec2-instance-connect/ssh?connType=standard&instanceId=i-07191b02b8fe2d769&osUser=ubuntu&region=ap-southeast-2&sshPort=22#/
+  - sudo apt-get update -y
+  - sudo apt-get upgrade -y -> just enter if something pop up
+  - Install Docker #required
+    - curl -fsSL https://get.docker.com -o get-docker.sh
+    - sudo sh get-docker.sh
+    - sudo usermod -aG docker ubuntu
+    - newgrp docker
+    - Check is docker install or not -> docker --version
+  - Github Setting
+    - Click Setting button
+    - Click Action -> Runner -> New self-hosted runner
+    - Choose Linux
+    - Architecture -> x64
+    - Create a folder
+    - # Create Directory
+      - $ mkdir actions-runner && cd actions-runner
+    - # Download the latest runner package
+      - $ curl -o actions-runner-linux-x64-2.317.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.317.0/actions-runner-linux-x64-2.317.0.tar.gz
+    - # Optional: Validate the hash
+      - $ echo "9e883d210df8c6028aff475475a457d380353f9d01877d51cc01a17b2a91161d  actions-runner-linux-x64-2.317.0.tar.gz" | shasum -a 256 -c
+    - # Extract the installer
+      - $ tar xzf ./actions-runner-linux-x64-2.317.0.tar.gz
+    - # Create the runner and start the configuration experience
+      - $ ./config.sh --url https://github.com/wildenali11/Kidney-Disease-Classification-EndToEnd --token APMI33OXM5JOB7PT3X3ITCDGSVDJY
+      - Enter the name of the runner group to add this runner to: [press Enter for Default] -> Just enter
+      - Enter the name of runner: [press Enter for ip-172-31-1-72] (fill with) -> self-hosted
+      - Enter any additional labels (ex. label-1,label-2): [press Enter to skip] -> Just enter
+      - Enter name of work folder: [press Enter for _work] -> Just enter
+    - # Last step, run it!
+      - $ ./run.sh
+    - Back to Runner in github, see status is Idle
+    - # Setup github secrets
+      - Click Settings
+      - Click Secrets and variables -> Actions -> New repository secrets
+        - Name: AWS_ACCESS_KEY_ID
+        - secret: AKIA4MTWH3E5VEOHMIGR
+        - Click Add secret
+      - Click Secrets and variables -> Actions -> New repository secrets
+        - Name: AWS_SECRET_ACCESS_KEY
+        - secret: LbWVGvtECZDKgiHoODVM2Rl1V5OXwh7wrVYIbsAb
+        - Click Add secret
+      - Click Secrets and variables -> Actions -> New repository secrets
+        - Name: AWS_REGION
+        - secret: ap-southeast-2
+        - Click Add secret
+      - Click Secrets and variables -> Actions -> New repository secrets
+        - Name: AWS_ECR_LOGIN_URI
+        - secret: 851725244731.dkr.ecr.ap-southeast-2.amazonaws.com
+        - Click Add secret
+      - Click Secrets and variables -> Actions -> New repository secrets
+        - Name: ECR_REPOSITORY_NAME
+        - secret: kidney    # this one from 851725244731.dkr.ecr.ap-southeast-2.amazonaws.com/kidney
+        - Click Add secret
