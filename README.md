@@ -209,3 +209,18 @@ Create the github repository
         - Name: ECR_REPOSITORY_NAME
         - secret: kidney    # this one from 851725244731.dkr.ecr.ap-southeast-2.amazonaws.com/kidney
         - Click Add secret
+    - # Setting Security Groups
+      - go to https://ap-southeast-2.console.aws.amazon.com/ec2/home?region=ap-southeast-2#Instances:
+      - Click Instance ID
+      - Click Security Tab -> Click Security groups -> sg-0a48a3e7ef5e88413 (launch-wizard-1)
+      - Inbound rules -> Edit inbound rules button
+      - Click Add rule
+        - Type -> Custom TCP
+        - Port range -> 8080
+        - Source -> Anywhere -> 0.0.0.0/0
+        - Click Save rules button
+      - go to https://ap-southeast-2.console.aws.amazon.com/ec2/home?region=ap-southeast-2#Instances:
+      - Click Instance ID
+        - Check Instance state -> Running
+      - Public IPv4 address
+        - open http://3.27.169.216:8080/
